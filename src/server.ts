@@ -6,34 +6,21 @@
 import app from './app';
 import debugLib from 'debug';
 import http from 'http';
+import logger from './core/utils/logger';
 const debug = debugLib('jiji-clone-apis:server');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.APP_PORT);
+const port = normalizePort(process.env.APP_PORT);
 app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val: string) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -50,10 +37,16 @@ function normalizePort(val) {
 }
 
 /**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error: { syscall: string; code: any }) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -81,9 +74,17 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log('server listening');
   var addr = server.address();
   var bind =
     typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  logger.info(`Listening on ${bind}`);
 }
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);

@@ -4,12 +4,18 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/server.js",
-    "start:dev": "nodemon --exec babel-node ./src/server.js",
+    "start:dev": "ts-node-dev --respawn ./src/server.ts",
     "transpile": "babel ./src --out-dir dist",
-    "build": "npm-run-all clean transpile",
+    "build": "tsc",
     "clean": "rimraf dist/*"
   },
   "dependencies": {
+    "@types/compression": "^1.7.0",
+    "@types/cors": "^2.8.7",
+    "@types/debug": "^4.1.5",
+    "@types/express": "^4.17.7",
+    "@types/helmet": "0.0.48",
+    "@types/morgan": "^1.9.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -18,7 +24,8 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "helmet": "^4.1.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -27,6 +34,8 @@
     "@babel/preset-env": "^7.11.0",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^1.0.0-pre.61",
+    "typescript": "^4.0.2"
   }
 }
