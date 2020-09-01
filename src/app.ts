@@ -2,10 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express, {
-  Express,
   Request,
   Response,
   NextFunction,
+  Application,
 } from 'express';
 import path from 'path';
 import logger from 'morgan';
@@ -17,24 +17,26 @@ import indexRouter from './api/routes/index';
 import errorHandle from './api/middlewares/errorHandlers';
 
 class AppModule {
-  public app: Express;
+  public app: Application;
 
   constructor() {
     this.app = express();
     this.app.set('views', path.join(__dirname, '../views'));
     this.app.set('view engine', 'ejs');
+    this.loadMiddlewares();
+    this.loadRoutes();
+    this.handleErrors();
+  }
 
+  private loadMiddlewares() {
     this.app.use(cors());
     this.app.options('*', cors());
-
     this.app.use(helmet());
     this.app.use(compression());
     this.app.use(logger('dev'));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(express.static(path.join(__dirname, '../public')));
-    this.loadRoutes();
-    this.handleErrors();
   }
 
   private loadRoutes() {
@@ -43,6 +45,7 @@ class AppModule {
 
   private handleErrors() {
     this.app.use(errorHandle);
+
     // handle 404 errors
     this.app.use((req, res, _next): void => {
       res.status(404).json({
