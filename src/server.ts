@@ -7,11 +7,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Application } from 'express';
-import debugLib from 'debug';
 import http from 'http';
 import app from './app';
 import logger from './core/utils/logger';
-const debug = debugLib('jiji-clone-apis:server');
+import db from './core/database/models';
 
 class Server {
   public app: Application;
@@ -23,9 +22,9 @@ class Server {
     this.server = http.createServer(this.app);
     this.port = process.env.APP_PORT;
     this.app.set('port', this.getPort());
-    this.server.listen(this.getPort());
     this.server.on('error', this.onError);
     this.server.on('listening', this.onListening);
+    this.connectDB();
   }
 
   private normalizePort(val: string) {
@@ -71,6 +70,15 @@ class Server {
 
   private onListening() {
     logger.info(`Listening on port ${process.env.APP_PORT}`);
+  }
+
+  private connectDB() {
+    db.sequelize.authenticate().then(() => {
+      logger.info(
+        'MYSQL Connection has been established successfully.',
+      );
+      this.server.listen(this.getPort());
+    });
   }
 
   public getPort() {
