@@ -3,41 +3,24 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('products', {
+    return queryInterface.createTable('messages', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuidv4(),
       },
-      name: {
-        type: Sequelize.STRING,
+      text: {
+        type: Sequelize.TEXT,
         allowNull: false,
       },
-      price: {
-        type: Sequelize.DECIMAL,
-        allowNull: false,
+      sender: {
+        type: Sequelize.TEXT,
       },
-      image_url: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      category: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      contact: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      owner_id: {
+      conversation_id: {
         type: Sequelize.UUID,
         references: {
-          model: 'users',
+          model: 'conversations',
           key: 'id',
         },
       },
@@ -52,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('products');
+    return queryInterface.dropTable('messages');
   },
 };

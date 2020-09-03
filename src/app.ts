@@ -13,18 +13,19 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import compression from 'compression';
-import indexRouter from './api/routes/index';
 import errorHandle from './api/middlewares/errorHandlers';
+
+import { BaseController, ProductController } from './api/controllers';
 
 class AppModule {
   public app: Application;
 
-  constructor() {
+  constructor(controllers: BaseController[]) {
     this.app = express();
     this.app.set('views', path.join(__dirname, '../views'));
     this.app.set('view engine', 'ejs');
     this.loadMiddlewares();
-    this.loadRoutes();
+    this.loadControllers(controllers);
     this.handleErrors();
   }
 
@@ -39,8 +40,10 @@ class AppModule {
     this.app.use(express.static(path.join(__dirname, '../public')));
   }
 
-  private loadRoutes() {
-    this.app.use('/', indexRouter);
+  private loadControllers(controllers: BaseController[]) {
+    controllers.forEach((controller) => {
+      this.app.use('/', controller.router);
+    });
   }
 
   private handleErrors() {
@@ -70,6 +73,6 @@ class AppModule {
   }
 }
 
-const { app } = new AppModule();
+const { app } = new AppModule([new ProductController()]);
 
 export default app;

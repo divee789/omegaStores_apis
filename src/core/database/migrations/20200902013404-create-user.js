@@ -12,14 +12,25 @@ module.exports = {
       },
       first_name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       last_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      image_url: {
         type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING,
       },
-      image_url: {
+      password: {
+        type: Sequelize.STRING,
+      },
+      facebook: {
+        type: Sequelize.STRING,
+      },
+      twitter: {
         type: Sequelize.STRING,
       },
       createdAt: {

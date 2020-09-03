@@ -1,5 +1,5 @@
 import {
-  Sequelize,
+  sequelize,
   Model,
   DataTypes,
   Optional,
@@ -8,82 +8,119 @@ import {
   HasManyHasAssociationMixin,
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
+  HasManyRemoveAssociationMixin,
   Association,
-} from 'sequelize';
-import { Product } from './product';
+} from './sequelize-config';
+import Conversation from './conversation';
+import Product, { ProductAttributes } from './product';
 
 interface UserAttributes {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   email: string;
-  image_url: string;
+  password?: string;
+  image_url?: string;
+  facebook?: string;
+  twitter?: string;
 }
 
 interface UserCreationAttributes
   extends Optional<UserAttributes, 'id'> {}
-
 class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes {
-  public id!: number;
+  public id!: string;
   public first_name!: string;
   public last_name!: string;
   public email!: string;
+  public password: string;
   public image_url: string;
+  public facebook: string;
+  public twitter: string;
 
   // timestamps!
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public getProducts!: HasManyGetAssociationsMixin<Product>;
-  public addProduct!: HasManyAddAssociationMixin<Product, number>;
-  public hasProduct!: HasManyHasAssociationMixin<Product, number>;
+  public addProduct!: HasManyAddAssociationMixin<Product, string>;
+  public hasProduct!: HasManyHasAssociationMixin<Product, string>;
   public countProducts!: HasManyCountAssociationsMixin;
-  public createProduct!: HasManyCreateAssociationMixin<Product>;
+  public createProduct!: HasManyCreateAssociationMixin<
+    ProductAttributes
+  >;
+  public removeProduct!: HasManyRemoveAssociationMixin<
+    Product,
+    string
+  >;
+  public getConversations!: HasManyGetAssociationsMixin<Conversation>;
 
-  public readonly products?: Product[]; // Note this is optional since it's only populated when explicitly requested in code
+  public readonly products?: Product[];
+  public readonly conversations?: Conversation[];
 
-  public static associate: {
+  public static associations: {
     products: Association<User, Product>;
+    conversations: Association<User, Conversation>;
   };
 }
 
-export function instantiateUser(sequelize: Sequelize) {
-  User.init(
-    {
-      id: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-      },
-      first_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      last_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      image_url: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+User.init(
+  {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
-    {
-      sequelize,
-      tableName: 'users',
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-  );
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    facebook: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    twitter: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+  },
+  {
+    sequelize,
+    tableName: 'users',
+  },
+);
 
-  User.hasMany(Product, {
-    sourceKey: 'id',
-    foreignKey: 'owner_id',
-    as: 'products', // this determines the name in `associations`!
-  });
+User.hasMany(Product, {
+  sourceKey: 'id',
+  foreignKey: 'owner_id',
+  as: 'products', // this determines the name in `associations`!
+  onDelete: 'CASCADE',
+});
 
-  return User;
-}
+User.hasMany(Conversation, {
+  sourceKey: 'id',
+  foreignKey: 'userOne',
+});
+
+User.hasMany(Conversation, {
+  sourceKey: 'id',
+  foreignKey: 'userTwo',
+});
+
+export default User;
