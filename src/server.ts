@@ -78,7 +78,7 @@ class Server {
         'MYSQL Connection has been established successfully.',
       );
       this.server.listen(this.port);
-      this.testDB();
+      // this.testDB();
     });
   }
 
@@ -88,18 +88,18 @@ class Server {
 
   public async testDB() {
     try {
-      const user1 = await db.user.create({
-        first_name: 'Divine',
-        last_name: 'Olokor',
-        email: 'test@gmail.com',
-        image_url: 'test',
-      });
-      const user2 = await db.user.create({
-        first_name: 'Testify',
-        last_name: 'Olokor',
-        email: 'test@gmail.com',
-        image_url: 'test',
-      });
+      // const user1 = await db.user.create({
+      //   first_name: 'Divine',
+      //   last_name: 'Olokor',
+      //   email: 'test@gmail.com',
+      //   image_url: 'test',
+      // });
+      // const user2 = await db.user.create({
+      //   first_name: 'Testify',
+      //   last_name: 'Olokor',
+      //   email: 'test@gmail.com',
+      //   image_url: 'test',
+      // });
       // const product = await user1.createProduct({
       //   name: 'test1',
       //   price: '50000',
@@ -108,7 +108,6 @@ class Server {
       //   category: 'test',
       //   contact: 'test',
       // });
-
       // const convo1 = async () => {
       //   const co = await db.conversation.findOne({
       //     where: {
@@ -140,9 +139,7 @@ class Server {
       //     return co;
       //   }
       // };
-
       // const conv = await convo1();
-
       // const msg = await conv.createMessage({
       //   text: 'hELLO',
       //   sender: {
@@ -150,7 +147,6 @@ class Server {
       //     name: user1.first_name + user1.last_name,
       //   },
       // });
-
       // const myconv1 = await user1.getConversations();
       // const convMessaes = await db.message.findAll({
       //   where: {

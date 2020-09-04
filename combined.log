@@ -89,3 +89,36 @@
 2020-09-03T18:00:27.974Z [32minfo[39m: Listening on port 7002
 2020-09-03T20:46:40.400Z [32minfo[39m: MYSQL Connection has been established successfully.
 2020-09-03T20:46:40.461Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:40:18.864Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:40:18.958Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:40:50.485Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:40:50.515Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:42:42.285Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:42:42.307Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:46:57.562Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:46:57.591Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:47:18.563Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:47:18.592Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:47:39.569Z [31merror[39m: Something has gone wrong. Unhandled error Table 'jiji_development.products' doesn't exist
+2020-09-04T21:51:27.954Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:51:28.056Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:51:59.344Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:51:59.403Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:52:08.855Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:52:08.905Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:58:00.027Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:58:00.132Z [32minfo[39m: Listening on port 7002
+2020-09-04T21:59:29.879Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T21:59:29.900Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:07:09.552Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:07:09.576Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:09:11.838Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:09:11.863Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:42:18.561Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:42:18.577Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:43:21.122Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:43:21.130Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:43:42.868Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:43:42.887Z [32minfo[39m: Listening on port 7002
+2020-09-04T23:44:06.223Z [32minfo[39m: MYSQL Connection has been established successfully.
+2020-09-04T23:44:06.238Z [32minfo[39m: Listening on port 7002

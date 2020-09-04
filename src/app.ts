@@ -15,7 +15,12 @@ import helmet from 'helmet';
 import compression from 'compression';
 import errorHandle from './api/middlewares/errorHandlers';
 
-import { BaseController, ProductController } from './api/controllers';
+import {
+  BaseController,
+  ProductController,
+  GoogleController,
+  FacebookController,
+} from './api/controllers';
 
 class AppModule {
   public app: Application;
@@ -73,6 +78,10 @@ class AppModule {
   }
 }
 
-const { app } = new AppModule([new ProductController()]);
+const { app } = new AppModule([
+  new ProductController(),
+  new GoogleController(),
+  new FacebookController(),
+]);
 
 export default app;
