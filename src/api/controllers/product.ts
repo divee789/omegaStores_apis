@@ -1,12 +1,16 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import db from '../../core/database/models';
+import Validation from '../../core/validations';
+import { ICreateInterface } from '../../core/validations/interfaces/product';
 
 class ProductController {
   public path = '/products';
   public router = Router();
+  public Validations: Validation;
 
   constructor() {
     this.initializeRoutes();
+    this.Validations = new Validation();
   }
 
   public initializeRoutes() {
@@ -36,9 +40,12 @@ class ProductController {
     next: NextFunction,
   ) {
     try {
-      const data = req.body;
+      const validatedData: ICreateInterface = await this.Validations.validate(
+        req.body,
+        this.Validations.productSchema.create,
+      );
       const user = await db.user.findByPk(req.body.id);
-      const product = await user.createProduct({ ...req.body });
+      const product = await user.createProduct({ ...validatedData });
       res.json({
         status: true,
         data: product,
