@@ -1,6 +1,8 @@
 'use strict';
 const { v4: uuidv4 } = require('uuid');
 
+const owner_id = '018ccd3f-d470-4919-9cf8-58aeb2dc878c';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     try {
@@ -9,7 +11,7 @@ module.exports = {
           id: uuidv4(),
           name: 'Lamborghini',
           price: '250000',
-          owner_id: '49523884-7eb4-4177-89a7-ea08bc76bd5c',
+          owner_id,
           image_url:
             'https://upload.wikimedia.org/wikipedia/commons/6/6c/Lamborghini_Huracan_20150525_7811.jpg',
           description: 'This is a very good product',
@@ -22,7 +24,7 @@ module.exports = {
           id: uuidv4(),
           name: 'Black Sweater',
           price: '7800',
-          owner_id: '49523884-7eb4-4177-89a7-ea08bc76bd5c',
+          owner_id,
           image_url:
             'https://ae01.alicdn.com/kf/H6a34b869863340da8c5f93308723c4dd3/2020-Latest-Men-Hooded-Sweatshirt-High-Quality-Black-Hoodie-Solid-Color-Clothing-Hip-Hop-Pullover-Hoodies.jpg',
           description: 'This is a very good product',
@@ -35,7 +37,7 @@ module.exports = {
           id: uuidv4(),
           name: 'Lamborghinic',
           price: '250000',
-          owner_id: '49523884-7eb4-4177-89a7-ea08bc76bd5c',
+          owner_id,
           image_url:
             'https://upload.wikimedia.org/wikipedia/commons/6/6c/Lamborghini_Huracan_20150525_7811.jpg',
           description: 'This is a very good product',
@@ -48,7 +50,7 @@ module.exports = {
           id: uuidv4(),
           name: 'Lamborghiniv',
           price: '250000',
-          owner_id: '49523884-7eb4-4177-89a7-ea08bc76bd5c',
+          owner_id,
           image_url:
             'https://ae01.alicdn.com/kf/H6a34b869863340da8c5f93308723c4dd3/2020-Latest-Men-Hooded-Sweatshirt-High-Quality-Black-Hoodie-Solid-Color-Clothing-Hip-Hop-Pullover-Hoodies.jpg',
           description: 'This is a very good product',

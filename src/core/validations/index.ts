@@ -3,11 +3,9 @@ import { BadRequestError } from '../errors';
 import { ProductSchemas } from './product';
 
 class Validation {
-  public productSchema: ProductSchemas;
+  public productSchema = ProductSchemas;
 
-  constructor() {
-    this.productSchema = new ProductSchemas();
-  }
+  constructor() {}
 
   validate(data: any, schema: Joi.ObjectSchema<any>): Promise<any> {
     const { error, value } = schema.validate(data, {
