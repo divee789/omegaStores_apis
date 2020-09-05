@@ -13,12 +13,11 @@ import logger from './core/utils/logger';
 import db from './core/database/models';
 
 class Server {
-  public app: Application;
+  public app = app;
   public server: http.Server;
   public port: string | number | false;
 
   constructor() {
-    this.app = app;
     this.server = http.createServer(this.app);
     this.port = this.getPort(process.env.APP_PORT);
     this.app.set('port', this.port);
