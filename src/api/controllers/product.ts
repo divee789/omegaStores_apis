@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import db from '../../core/database/models';
 import Validation from '../../core/validations';
 import { ICreateInterface } from '../../core/validations/interfaces/product';
+import authMiddleware from '../middlewares/auth';
 
 class ProductController {
   public path = '/products';
@@ -15,7 +16,9 @@ class ProductController {
 
   public initializeRoutes() {
     this.router.get(this.path, this.getAllProducts);
-    this.router.post(this.path, this.createProduct);
+    this.router
+      .all(`${this.path}/*`, authMiddleware)
+      .post(this.path, this.createProduct);
   }
 
   getAllProducts = async (
