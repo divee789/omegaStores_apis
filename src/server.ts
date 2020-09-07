@@ -6,7 +6,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { Application } from 'express';
 import http from 'http';
 import app from './app';
 import logger from './core/utils/logger';
@@ -14,11 +13,10 @@ import db from './core/database/models';
 
 class Server {
   public app = app;
-  public server: http.Server;
+  public server = http.createServer(this.app);
   public port: string | number | false;
 
   constructor() {
-    this.server = http.createServer(this.app);
     this.port = this.getPort(process.env.APP_PORT);
     this.app.set('port', this.port);
     this.server.on('error', this.onError);

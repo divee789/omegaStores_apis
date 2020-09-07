@@ -1,11 +1,10 @@
 import { Router } from 'express';
 import ProductController from './product';
-import GoogleController from './socialAuth/Google';
-import FacebookController from './socialAuth/Facebook';
+import AuthController from './auth';
 
 export interface BaseController {
   path: string;
   router: Router;
 }
 
-export { ProductController, GoogleController, FacebookController };
+export { AuthController, ProductController };
