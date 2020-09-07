@@ -19,7 +19,9 @@ interface UserAttributes {
   first_name: string;
   last_name: string;
   email: string;
-  password?: string;
+  email_verified?: boolean;
+  email_verification_token: string;
+  password: string;
   image_url?: string;
   facebook?: string;
   twitter?: string;
@@ -34,7 +36,9 @@ class User
   public first_name!: string;
   public last_name!: string;
   public email!: string;
-  public password: string;
+  public email_verified: boolean;
+  public email_verification_token!: string;
+  public password!: string;
   public image_url: string;
   public facebook: string;
   public twitter: string;
@@ -90,6 +94,15 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    email_verified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    email_verification_token: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     facebook: {
       type: DataTypes.STRING,

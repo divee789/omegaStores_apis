@@ -5,3 +5,4 @@ combined.log
 error.log
 auth-private.key
 auth-public.key
+package-lock.json

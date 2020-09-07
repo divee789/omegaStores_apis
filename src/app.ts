@@ -18,8 +18,7 @@ import errorHandle from './api/middlewares/errorHandlers';
 import {
   BaseController,
   ProductController,
-  GoogleController,
-  FacebookController,
+  AuthController,
 } from './api/controllers';
 
 class AppModule {
@@ -79,9 +78,8 @@ class AppModule {
 }
 
 const { app } = new AppModule([
+  new AuthController(),
   new ProductController(),
-  new GoogleController(),
-  new FacebookController(),
 ]);
 
 export default app;
