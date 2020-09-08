@@ -1,4 +1,4 @@
-export interface ICreateInterface {
+export interface IProductInterface {
   name: string;
   price: string;
   image_url: string;
