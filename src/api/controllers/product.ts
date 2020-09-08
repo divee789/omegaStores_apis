@@ -60,9 +60,10 @@ class ProductController {
     next: NextFunction,
   ) {
     try {
-      const validatedData: IProductInterface = await this.Validations.validate(
+      const { validate, productSchema } = this.Validations;
+      const validatedData: IProductInterface = await validate(
         req.body,
-        this.Validations.productSchema.create,
+        productSchema.create,
       );
       const product = await res.locals.user.createProduct({
         ...validatedData,
@@ -82,9 +83,10 @@ class ProductController {
     next: NextFunction,
   ) {
     try {
-      const validatedData: IProductInterface = await this.Validations.validate(
+      const { validate, productSchema } = this.Validations;
+      const validatedData: IProductInterface = await validate(
         req.body,
-        this.Validations.productSchema.create,
+        productSchema.create,
       );
       const product = await db.product.findByPk(req.params.id);
       product.image_url = validatedData.image_url;

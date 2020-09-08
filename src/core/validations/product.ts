@@ -7,7 +7,10 @@ export class ProductSchemas {
     price: string.trim().required(),
     image_url: string.trim().required(),
     description: string.trim().required(),
-    category: string.trim().required().valid('vehicles', 'clothing'),
+    category: string
+      .trim()
+      .required()
+      .valid('vehicles', 'clothing', 'tech'),
     contact: string.trim().required(),
   });
 }

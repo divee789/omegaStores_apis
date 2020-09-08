@@ -1,9 +1,11 @@
 import Joi from '@hapi/joi';
 import { BadRequestError } from '../errors';
 import { ProductSchemas } from './product';
+import { AuthSchemas } from './auth';
 
 class Validation {
   public productSchema = ProductSchemas;
+  public authSchema = AuthSchemas;
 
   constructor() {}
 
