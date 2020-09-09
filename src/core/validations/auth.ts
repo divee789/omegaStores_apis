@@ -3,9 +3,9 @@ const { object, string } = Joi.types();
 
 export class AuthSchemas {
   static signUp = object.keys({
-    first_name: string.trim().email().required(),
+    first_name: string.trim().required(),
     last_name: string.trim().required(),
-    email: string.trim().required(),
+    email: string.trim().email().required(),
     password: string.trim().min(6).required(),
   });
 

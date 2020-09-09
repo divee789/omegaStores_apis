@@ -78,8 +78,8 @@ class AppModule {
 }
 
 const { app } = new AppModule([
-  new AuthController(),
   new ProductController(),
+  new AuthController(),
 ]);
 
 export default app;

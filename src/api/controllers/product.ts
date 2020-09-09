@@ -1,27 +1,31 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import db from '../../core/database/models';
-import Validation from '../../core/validations';
+import { validate, ProductSchemas } from '../../core/validations';
 import { IProductInterface } from '../../core/validations/interfaces/product';
 import authMiddleware from '../middlewares/auth';
 
 class ProductController {
   public path = '/products';
   public router = Router();
-  public Validations: Validation;
 
   constructor() {
     this.initializeRoutes();
-    this.Validations = new Validation();
   }
 
   public initializeRoutes() {
     this.router.get(this.path, this.getAllProducts);
     this.router.get(`${this.path}/:id`, this.getProduct);
-    this.router
-      .all(`${this.path}/*`, authMiddleware)
-      .post(this.path, this.createProduct)
-      .put(`${this.path}/:id`, this.updateProduct)
-      .delete(`${this.path}/:id`, this.deleteProduct);
+    this.router.post(this.path, authMiddleware(), this.createProduct);
+    this.router.put(
+      `${this.path}/:id`,
+      authMiddleware(),
+      this.updateProduct,
+    );
+    this.router.delete(
+      `${this.path}/:id`,
+      authMiddleware(),
+      this.deleteProduct,
+    );
   }
 
   getAllProducts = async (
@@ -60,10 +64,9 @@ class ProductController {
     next: NextFunction,
   ) {
     try {
-      const { validate, productSchema } = this.Validations;
       const validatedData: IProductInterface = await validate(
         req.body,
-        productSchema.create,
+        ProductSchemas.create,
       );
       const product = await res.locals.user.createProduct({
         ...validatedData,
@@ -83,10 +86,9 @@ class ProductController {
     next: NextFunction,
   ) {
     try {
-      const { validate, productSchema } = this.Validations;
       const validatedData: IProductInterface = await validate(
         req.body,
-        productSchema.create,
+        ProductSchemas.create,
       );
       const product = await db.product.findByPk(req.params.id);
       product.image_url = validatedData.image_url;
