@@ -3,53 +3,49 @@ import { BadRequestError } from '../errors';
 import { ProductSchemas } from './product';
 import { AuthSchemas } from './auth';
 
-class Validation {
-  public productSchema = ProductSchemas;
-  public authSchema = AuthSchemas;
+const validate = (
+  data: any,
+  schema: Joi.ObjectSchema<any>,
+): Promise<any> => {
+  const { error, value } = schema.validate(data, {
+    errors: { escapeHtml: true },
+    abortEarly: false,
+  });
 
-  constructor() {}
+  return new Promise((resolve, reject): void => {
+    const buildErrorObject = (
+      errors: Joi.ValidationErrorItem[],
+    ): { message: string; customErrorMessage: string } | {} => {
+      const customErrors = {};
+      errors.forEach((item) => {
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            customErrors,
+            item.path.join('.'),
+          )
+        ) {
+          customErrors[item.path.join('.')] = {
+            message: item.message.replace(/['"]+/g, ''),
+          };
+        }
+      });
 
-  validate(data: any, schema: Joi.ObjectSchema<any>): Promise<any> {
-    const { error, value } = schema.validate(data, {
-      errors: { escapeHtml: true },
-      abortEarly: false,
-    });
+      return customErrors;
+    };
 
-    return new Promise((resolve, reject): void => {
-      const buildErrorObject = (
-        errors: Joi.ValidationErrorItem[],
-      ): { message: string; customErrorMessage: string } | {} => {
-        const customErrors = {};
-        errors.forEach((item) => {
-          if (
-            !Object.prototype.hasOwnProperty.call(
-              customErrors,
-              item.path.join('.'),
-            )
-          ) {
-            customErrors[item.path.join('.')] = {
-              message: item.message.replace(/['"]+/g, ''),
-            };
-          }
-        });
+    if (error) {
+      const errorData = buildErrorObject(error.details);
+      const errorObj = new BadRequestError(
+        'Invalid Request Data',
+        undefined,
+        errorData,
+      );
 
-        return customErrors;
-      };
+      return reject(errorObj);
+    }
 
-      if (error) {
-        const errorData = buildErrorObject(error.details);
-        const errorObj = new BadRequestError(
-          'Invalid Request Data',
-          undefined,
-          errorData,
-        );
+    return resolve(value);
+  });
+};
 
-        return reject(errorObj);
-      }
-
-      return resolve(value);
-    });
-  }
-}
-
-export default Validation;
+export { AuthSchemas, ProductSchemas, validate };

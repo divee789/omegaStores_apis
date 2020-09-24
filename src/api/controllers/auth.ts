@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import { OAuth2Client } from 'google-auth-library';
 import Services from '../../core/services';
-import Validation from '../../core/validations';
+import { validate, AuthSchemas } from '../../core/validations';
 import {
   IUserLogIn,
   IUserSignUp,
@@ -16,11 +16,9 @@ const Service = new Services();
 class AuthController {
   public path = '/auth';
   public router = Router();
-  public Validations: Validation;
 
   constructor() {
     this.initializeRoutes();
-    this.Validations = new Validation();
   }
 
   public initializeRoutes() {
@@ -32,13 +30,17 @@ class AuthController {
 
   logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { validate, authSchema } = this.Validations;
       const validatedData: IUserLogIn = await validate(
         req.body,
-        authSchema.logIn,
+        AuthSchemas.logIn,
       );
       const access_token = await Service.Auth.logIn(validatedData);
-      res.json({ access_token });
+      res.json({
+        status: true,
+        data: {
+          access_token,
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -50,15 +52,14 @@ class AuthController {
     next: NextFunction,
   ) => {
     try {
-      const { validate, authSchema } = this.Validations;
       const validatedData: IUserSignUp = await validate(
         req.body,
-        authSchema.signUp,
+        AuthSchemas.signUp,
       );
       const access_token = await Service.Auth.signUpUser(
         validatedData,
       );
-      res.json({ status: true, access_token });
+      res.json({ status: true, data: { access_token } });
     } catch (error) {
       next(error);
     }
@@ -70,10 +71,9 @@ class AuthController {
     next: NextFunction,
   ) => {
     try {
-      const { validate, authSchema } = this.Validations;
       const { userID, token }: IFacebookAuth = await validate(
         req.body,
-        authSchema.facebookAuth,
+        AuthSchemas.facebookAuth,
       );
       const url = `https://graph.facebook.com/v2.11/${userID}?fields=name,picture,email,id&access_token=${token}`;
       const response = await axios.get(url);
@@ -94,7 +94,7 @@ class AuthController {
       } else {
         access_token = await Service.Auth.socialLogIn(email);
       }
-      res.json({ status: true, access_token });
+      res.json({ status: true, data: { access_token } });
     } catch (error) {
       logger.error(`[FACEBOOK AUTH ERROR] ${error}`);
       next(error);
@@ -107,10 +107,9 @@ class AuthController {
     next: NextFunction,
   ) => {
     try {
-      const { validate, authSchema } = this.Validations;
       const { token }: IGoogleAuth = await validate(
         req.body,
-        authSchema.googleAuth,
+        AuthSchemas.googleAuth,
       );
       const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
       const response = await client.verifyIdToken({
@@ -140,7 +139,7 @@ class AuthController {
         } else {
           access_token = await Service.Auth.socialLogIn(email);
         }
-        res.json({ status: true, access_token });
+        return res.json({ status: true, data: { access_token } });
       }
       res.json({
         status: false,
