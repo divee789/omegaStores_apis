@@ -19,6 +19,7 @@ import {
   BaseController,
   ProductController,
   AuthController,
+  ChatController,
 } from './api/controllers';
 
 class AppModule {
@@ -80,6 +81,7 @@ class AppModule {
 const { app } = new AppModule([
   new ProductController(),
   new AuthController(),
+  new ChatController(),
 ]);
 
 export default app;

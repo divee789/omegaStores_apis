@@ -28,7 +28,7 @@ class AuthService {
       ...data,
       password: hashedPassword,
       email_verification_token: verification_token,
-      email_verified: email_verified ? true : false,
+      email_verified,
     });
     const emailData = {
       to: user.email,

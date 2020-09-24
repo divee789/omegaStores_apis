@@ -39,7 +39,7 @@ class ProductController {
       });
       res.json({
         status: true,
-        data: products,
+        data: { products },
       });
     } catch (error) {
       next(error);
@@ -54,7 +54,7 @@ class ProductController {
     const product = await db.product.findByPk(req.params.id);
     res.json({
       status: true,
-      data: product,
+      data: { product },
     });
   };
 
@@ -68,12 +68,12 @@ class ProductController {
         req.body,
         ProductSchemas.create,
       );
-      const product = await res.locals.user.createProduct({
-        ...validatedData,
-      });
+      const product = await res.locals.user.createProduct(
+        validatedData,
+      );
       res.json({
         status: true,
-        data: product,
+        data: { product },
       });
     } catch (error) {
       next(error);

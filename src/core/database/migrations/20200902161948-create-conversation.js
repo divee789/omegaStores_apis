@@ -12,9 +12,17 @@ module.exports = {
       },
       userOne: {
         type: Sequelize.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
       userTwo: {
         type: Sequelize.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

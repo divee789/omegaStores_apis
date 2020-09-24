@@ -35,7 +35,12 @@ class AuthController {
         AuthSchemas.logIn,
       );
       const access_token = await Service.Auth.logIn(validatedData);
-      res.json({ access_token });
+      res.json({
+        status: true,
+        data: {
+          access_token,
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -54,7 +59,7 @@ class AuthController {
       const access_token = await Service.Auth.signUpUser(
         validatedData,
       );
-      res.json({ status: true, access_token });
+      res.json({ status: true, data: { access_token } });
     } catch (error) {
       next(error);
     }
@@ -89,7 +94,7 @@ class AuthController {
       } else {
         access_token = await Service.Auth.socialLogIn(email);
       }
-      res.json({ status: true, access_token });
+      res.json({ status: true, data: { access_token } });
     } catch (error) {
       logger.error(`[FACEBOOK AUTH ERROR] ${error}`);
       next(error);
@@ -134,7 +139,7 @@ class AuthController {
         } else {
           access_token = await Service.Auth.socialLogIn(email);
         }
-        res.json({ status: true, access_token });
+        return res.json({ status: true, data: { access_token } });
       }
       res.json({
         status: false,
