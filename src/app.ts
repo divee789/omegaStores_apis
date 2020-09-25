@@ -46,6 +46,9 @@ class AppModule {
   }
 
   private loadControllers(controllers: BaseController[]) {
+    this.app.get('/', function (req, res, next) {
+      res.render('index', { title: 'Jiji Clone Apis' });
+    });
     controllers.forEach((controller) => {
       this.app.use('/', controller.router);
     });
