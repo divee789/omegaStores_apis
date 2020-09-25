@@ -9,13 +9,26 @@ module.exports = {
       return await queryInterface.bulkInsert('products', [
         {
           id: uuidv4(),
-          name: 'Lamborghini',
-          price: '250000',
+          name: 'Lamborghini Huracan',
+          price: '2500000',
           owner_id,
           image_url:
             'https://upload.wikimedia.org/wikipedia/commons/6/6c/Lamborghini_Huracan_20150525_7811.jpg',
           description: 'This is a very good product',
           category: 'vehicle',
+          contact: '0901910190',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: uuidv4(),
+          name: 'Samsung Galaxy S20',
+          price: '100000',
+          owner_id,
+          image_url:
+            'https://llynmase.com/wp-content/uploads/2020/07/samsung-galaxy-s20-plus-4g-g985-8gb-ram-128gb-dual-sim-negro.jpg',
+          description: 'This is a very good product',
+          category: 'tech',
           contact: '0901910190',
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -35,8 +48,8 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          name: 'Lamborghinic',
-          price: '250000',
+          name: 'Lamborghini Huracan',
+          price: '2500000',
           owner_id,
           image_url:
             'https://upload.wikimedia.org/wikipedia/commons/6/6c/Lamborghini_Huracan_20150525_7811.jpg',
@@ -55,6 +68,19 @@ module.exports = {
             'https://ae01.alicdn.com/kf/H6a34b869863340da8c5f93308723c4dd3/2020-Latest-Men-Hooded-Sweatshirt-High-Quality-Black-Hoodie-Solid-Color-Clothing-Hip-Hop-Pullover-Hoodies.jpg',
           description: 'This is a very good product',
           category: 'clothing',
+          contact: '0901910190',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: uuidv4(),
+          name: 'Iphone 11',
+          price: '100000',
+          owner_id,
+          image_url:
+            'https://www.gizmochina.com/wp-content/uploads/2019/09/Apple-iPhone-11-1-500x500.jpg',
+          description: 'This is a very good product',
+          category: 'tech',
           contact: '0901910190',
           createdAt: new Date(),
           updatedAt: new Date(),
