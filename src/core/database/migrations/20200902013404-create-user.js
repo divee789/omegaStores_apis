@@ -23,6 +23,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
       },
       email_verified: {
         type: Sequelize.BOOLEAN,

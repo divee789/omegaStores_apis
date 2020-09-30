@@ -85,7 +85,9 @@ User.init(
     },
     image_url: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue:
+        'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
     },
     password: {
       type: DataTypes.STRING,
@@ -94,6 +96,7 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     email_verified: {
       type: DataTypes.BOOLEAN,

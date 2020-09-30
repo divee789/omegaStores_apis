@@ -7,6 +7,11 @@ import Message from './message';
 import Conversation from './conversation';
 import { sequelize, Op, Sequelize } from './sequelize-config';
 
+Product.belongsTo(User, {
+  as: 'owner',
+  foreignKey: 'owner_id',
+});
+
 const db = {
   sequelize,
   Sequelize,

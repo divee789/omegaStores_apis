@@ -1,4 +1,5 @@
 import { sequelize, Model, DataTypes } from './sequelize-config';
+import User from './user';
 
 export interface ProductAttributes {
   id: string; // id is an auto-generated UUID
@@ -50,6 +51,8 @@ Product.init(
     image_url: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue:
+        'https://connectnigeria.com/articles/wp-content/uploads/2016/07/product-launch-2.jpg',
     },
     description: {
       type: DataTypes.STRING,
